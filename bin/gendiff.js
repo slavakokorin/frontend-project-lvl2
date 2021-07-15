@@ -3,6 +3,6 @@
 import { Command } from '../node_modules/commander/esm.mjs';
 const program = new Command();
 
-program.version('0.0.1');
+program.version('0.0.1').description('Compares two configuration files and shows a difference.');
 
 program.parse(process.argv);
