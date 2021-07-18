@@ -20,7 +20,8 @@
     "url": "https://github.com/slavakokorin/frontend-project-lvl2/issues"
   },
   "homepage": "https://github.com/slavakokorin/frontend-project-lvl2#readme",
-  "devDependencies": {
-    "commander": "^8.0.0"
+  "dependencies": {
+    "commander": "^8.0.0",
+    "lodash": "^4.17.21"
   }
 }
