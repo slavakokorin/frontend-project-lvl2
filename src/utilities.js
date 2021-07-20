@@ -24,5 +24,5 @@ export const getObjectDifferences = (data1, data2) => {
     }
   }
   const resultToString = resultDiff.join('\n');
-  console.log(`{\n${resultToString}\n}`);
+  return `{\n${resultToString}\n}`;
 };
