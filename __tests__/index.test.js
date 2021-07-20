@@ -1,12 +1,6 @@
-//import { expect } from '@jest/globals';
 import path from 'path';
 import { cwd } from 'process';
 import genDiff from '../src/index.js';
-import { xxx } from '../src/index.js';
-
-test('cool diff', () => {
-  expect(xxx(2, 4)).toEqual(8);
-});
 
 test('cool', () => {
   const filePathFirst = path.resolve(`${cwd()}`, 'fixtures', `file1.json`);
