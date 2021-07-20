@@ -16,7 +16,7 @@ program
   .action((filepath1, filepath2) => {
     const filePathFirst = path.resolve(`${cwd()}`, 'fixtures', `${filepath1}`);
     const filePathSecond = path.resolve(`${cwd()}`, 'fixtures', `${filepath2}`);
-    genDiff(filePathFirst, filePathSecond);
+    console.log(genDiff(filePathFirst, filePathSecond));
   });
 
 program.parse(process.argv);
