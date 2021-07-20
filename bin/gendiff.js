@@ -14,8 +14,8 @@ program
   .argument('<filepath1>')
   .argument('<filepath2>')
   .action((filepath1, filepath2) => {
-    const filePathFirst = path.resolve(`${cwd()}`, '__fixtures__', `${filepath1}`);
-    const filePathSecond = path.resolve(`${cwd()}`, '__fixtures__', `${filepath2}`);
+    const filePathFirst = path.resolve(`${cwd()}`, 'fixtures', `${filepath1}`);
+    const filePathSecond = path.resolve(`${cwd()}`, 'fixtures', `${filepath2}`);
     genDiff(filePathFirst, filePathSecond);
   });
 
