@@ -1,10 +1,10 @@
+import { test, expect } from '@jest/globals';
 import path from 'path';
-import { cwd } from 'process';
 import genDiff from '../src/index.js';
 
 test('cool', () => {
-  const filePathFirst = path.resolve(`${cwd()}`, 'fixtures', `file1.json`);
-  const filePathSecond = path.resolve(`${cwd()}`, 'fixtures', `file2.json`);
+  const filePathFirst = path.resolve(__dirname, 'fixtures', 'file1.json');
+  const filePathSecond = path.resolve(__dirname, 'fixtures', 'file2.json');
   expect(genDiff(filePathFirst, filePathSecond)).toEqual(
     `{
   - follow: false
@@ -13,6 +13,6 @@ test('cool', () => {
   - timeout: 50
   + timeout: 20
   + verbose: true
-}`
+}`,
   );
 });
