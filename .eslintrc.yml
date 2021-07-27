@@ -9,7 +9,12 @@ parserOptions:
     jsx: true
   ecmaVersion: 12
   sourceType: module
+plugins:
+  - react
 rules:
   no-console: 0
   import/extensions: 0
   no-restricted-syntax: ['off', 'ForOfStatement']
+settings:
+  react:
+    version: '999.999.999'
