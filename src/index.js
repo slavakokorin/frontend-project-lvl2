@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { getObjectDifferences } from './utilities.js';
+import getObjectDifferences from './utilities.js';
 
 const getObject = (jsonContent) => JSON.parse(jsonContent);
 

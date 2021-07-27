@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { Command } from '../node_modules/commander/esm.mjs';
-import genDiff from '../src/index.js';
 import path from 'path';
 import { cwd } from 'process';
+import { Command } from '../node_modules/commander/esm.mjs';
+import genDiff from '../src/index.js';
 
 const program = new Command();
 
