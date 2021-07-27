@@ -9,8 +9,6 @@ parserOptions:
     jsx: true
   ecmaVersion: 12
   sourceType: module
-plugins:
-  - react
 rules:
   no-console: 0
   import/extensions: 0
