@@ -20,5 +20,3 @@ test('comparing flat json files', () => {
 }`,
   );
 });
-
-console.log('hello');
