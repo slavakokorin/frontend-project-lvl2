@@ -1,3 +1,13 @@
+Hi! В этом репозитории реализован учебный проект по работе с такой сущьностью JavaScript, как ОБЪЕКТЫ. Разработка ведётся через создание тестов в фреймворке Jest.
+
+##
+
+### INSTALL
+
+```sh
+$ make install
+```
+
 ### Hexlet tests and linter status:
 
 [![Actions Status](https://github.com/slavakokorin/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/slavakokorin/frontend-project-lvl2/actions)
