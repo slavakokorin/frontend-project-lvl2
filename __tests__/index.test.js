@@ -12,7 +12,22 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 test('comparing flat json files', () => {
   const readFirstFile = getFixturePath('file1.json');
   const readSecondFile = getFixturePath('file2.json');
-  expect(genDiff(readFirstFile, readSecondFile)).toEqual(
+  expect(genDiff(readFirstFile, '.json', readSecondFile, '.json')).toEqual(
+    `{
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
+}`,
+  );
+});
+
+test('comparing flat yaml files', () => {
+  const readFirstFile = getFixturePath('file3.yaml');
+  const readSecondFile = getFixturePath('file4.yaml');
+  expect(genDiff(readFirstFile, '.yaml', readSecondFile, '.yaml')).toEqual(
     `{
   - follow: false
     host: hexlet.io
