@@ -14,3 +14,7 @@ $ make install
 [![Linter status](https://github.com/slavakokorin/frontend-project-lvl2/actions/workflows/Linter.yml/badge.svg)](https://github.com/slavakokorin/frontend-project-lvl2/actions/workflows/Linter.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/slavakokorin/frontend-project-lvl2)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8fb60f90f2fddb0efe0a/test_coverage)](https://codeclimate.com/github/slavakokorin/frontend-project-lvl2/test_coverage)
+
+### Demonstratio
+
+[![asciicast](https://asciinema.org/a/HorizHmHBN4AGtNdGQ14UBIKS.svg)](https://asciinema.org/a/HorizHmHBN4AGtNdGQ14UBIKS)
