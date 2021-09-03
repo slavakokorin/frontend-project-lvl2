@@ -1,5 +1,4 @@
 import yaml from 'js-yaml';
-import _ from 'lodash';
 
 const getObject = (content, fileExtension) => {
   if (fileExtension === '.json') {
