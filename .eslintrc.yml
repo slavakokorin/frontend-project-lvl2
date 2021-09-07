@@ -14,3 +14,4 @@ rules:
   import/extensions: 0
   no-restricted-syntax: ['off', 'ForOfStatement']
   no-underscore-dangle: [2, { 'allow': ['__filename', '__dirname'] }]
+  operator-linebreak: ['error', 'after']
