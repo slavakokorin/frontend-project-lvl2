@@ -21,7 +21,6 @@ const getObjectDifferences = (data1, data2) => {
         diffInf.firstValue = 'no';
         diffInf.secondValue = d2[key];
       } else if (!_.isObject(d1[key]) && !_.isObject(d2[key]) && d1[key] === d2[key]) {
-        diffInf.condition = 'not changed';
         diffInf.firstValue = d1[key];
         diffInf.secondValue = 'no';
       } else if (
@@ -55,10 +54,8 @@ const getObjectDifferences = (data1, data2) => {
     return result;
   };
 
-  const stringify = (content) => {
+  const stringify = (content, replacer, spacesCount) => {
     const iterr = (currentVal, depth) => {
-      const replacer = '  ';
-      const spacesCount = 2;
       const firstSpace = replacer.repeat(spacesCount * depth);
       const secondSpace = replacer.repeat(spacesCount * (depth - 1));
       const resultString = ['{'];
@@ -79,19 +76,18 @@ const getObjectDifferences = (data1, data2) => {
           resultString.push(`\n${firstSpace.slice(2)}+ ${item.name}: ${item.secondValue}`);
         } else if (item.condition === 'deleted') {
           resultString.push(`\n${firstSpace.slice(2)}- ${item.name}: ${item.firstValue}`);
-        } else if (item.condition === 'not changed') {
-          resultString.push(`\n${firstSpace.slice(2)}  ${item.name}: ${item.firstValue}`);
         } else if (item.condition === 'added') {
           resultString.push(`\n${firstSpace.slice(2)}+ ${item.name}: ${item.secondValue}`);
+        } else {
+          resultString.push(`\n${firstSpace.slice(2)}  ${item.name}: ${item.firstValue}`);
         }
-        return null;
       });
       resultString.push(`\n${secondSpace}}`);
       return resultString.join('');
     };
     return iterr(content, 1);
   };
-  return stringify(iter(data1, data2));
+  return stringify(iter(data1, data2), '  ', 2);
 };
 
 export default getObjectDifferences;
