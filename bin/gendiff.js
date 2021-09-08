@@ -12,15 +12,14 @@ const getFileExtension = (fileName) => path.extname(fileName);
 program
   .version('0.0.1')
   .description('Compares two configuration files and shows a difference.')
-  .option('-f, --format [type]', 'output format')
-  .argument('<filepath1>')
-  .argument('<filepath2>')
+  .option('-f, --format [type]', 'output format', 'stylish')
+  .arguments('<filepath1> <filepath2>')
   .action((fileName1, fileName2) => {
-    const firstFilePath = getFilePath(fileName1);
-    const secondFilePath = getFilePath(fileName2);
-    const firstFileExtension = getFileExtension(fileName1);
-    const secondFileExtension = getFileExtension(fileName2);
-    console.log(genDiff(firstFilePath, firstFileExtension, secondFilePath, secondFileExtension));
+    const filePath1 = getFilePath(fileName1);
+    const filePath2 = getFilePath(fileName2);
+    const fileExtens1 = getFileExtension(fileName1);
+    const fileExtens2 = getFileExtension(fileName2);
+    console.log(genDiff(filePath1, fileExtens1, filePath2, fileExtens2));
   });
 
 program.parse(process.argv);
