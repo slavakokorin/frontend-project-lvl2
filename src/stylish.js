@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const renderDiff = (content, replacer, spacesCount) => {
+const stylish = (content, replacer = '  ', spacesCount = 2) => {
   const iter = (currentValue, depth) => {
     const firstSpace = replacer.repeat(spacesCount * depth);
     const secondSpace = replacer.repeat(spacesCount * (depth - 1));
@@ -34,4 +34,4 @@ const renderDiff = (content, replacer, spacesCount) => {
   return iter(content, 1);
 };
 
-export default renderDiff;
+export default stylish;
