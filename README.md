@@ -17,6 +17,10 @@ $ make install
 
 ### Demonstration
 
+## Example comparing flat json files
+
 [![asciicast](https://asciinema.org/a/HorizHmHBN4AGtNdGQ14UBIKS.svg)](https://asciinema.org/a/HorizHmHBN4AGtNdGQ14UBIKS)
+
+## Example comparing not flat json files
 
 [![asciicast](https://asciinema.org/a/435070.svg)](https://asciinema.org/a/435070)
