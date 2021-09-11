@@ -17,7 +17,7 @@ $ make install
 
 ### Demonstration
 
-## Example comparing flat json files
+## Example comparing flat json and yaml files
 
 [![asciicast](https://asciinema.org/a/HorizHmHBN4AGtNdGQ14UBIKS.svg)](https://asciinema.org/a/HorizHmHBN4AGtNdGQ14UBIKS)
 
