@@ -2,6 +2,7 @@ import { test, expect } from '@jest/globals';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
+import stylish from '../src/stylish.js';
 
 // следующие две строки нужны для работы __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -12,7 +13,7 @@ const getFixturePath = (fileName) => path.join(__dirname, '..', '__fixtures__', 
 test('comparing flat json files', () => {
   const readFirstFile = getFixturePath('file1.json');
   const readSecondFile = getFixturePath('file2.json');
-  expect(genDiff(readFirstFile, '.json', readSecondFile, '.json')).toEqual(
+  expect(genDiff(readFirstFile, readSecondFile, stylish)).toEqual(
     `{
   - follow: false
     host: hexlet.io
@@ -27,7 +28,7 @@ test('comparing flat json files', () => {
 test('comparing flat yaml files', () => {
   const readFirstFile = getFixturePath('file3.yaml');
   const readSecondFile = getFixturePath('file4.yaml');
-  expect(genDiff(readFirstFile, '.yaml', readSecondFile, '.yaml')).toEqual(
+  expect(genDiff(readFirstFile, readSecondFile, stylish)).toEqual(
     `{
   - follow: false
     host: hexlet.io
@@ -42,7 +43,7 @@ test('comparing flat yaml files', () => {
 test('comparing not flat json files', () => {
   const readFirstFile = getFixturePath('file5.json');
   const readSecondFile = getFixturePath('file6.json');
-  expect(genDiff(readFirstFile, '.json', readSecondFile, '.json')).toEqual(
+  expect(genDiff(readFirstFile, readSecondFile, stylish)).toEqual(
     `{
     common: {
       + follow: false
