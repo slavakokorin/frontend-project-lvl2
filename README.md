@@ -15,7 +15,7 @@ $ make install
 [![Maintainability](https://api.codeclimate.com/v1/badges/8fb60f90f2fddb0efe0a/maintainability)](https://codeclimate.com/github/slavakokorin/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8fb60f90f2fddb0efe0a/test_coverage)](https://codeclimate.com/github/slavakokorin/frontend-project-lvl2/test_coverage)
 
-### Demonstratio
+### Demonstration
 
 [![asciicast](https://asciinema.org/a/HorizHmHBN4AGtNdGQ14UBIKS.svg)](https://asciinema.org/a/HorizHmHBN4AGtNdGQ14UBIKS)
 
