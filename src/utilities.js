@@ -1,11 +1,10 @@
 import _ from 'lodash';
-import renderDiff from './stylish.js';
 
-const getUniqueKeys = (o1, o2) => {
-  const keys1 = _.keys(o1);
-  const keys2 = _.keys(o2);
-  const allKeys = _.union(keys1, keys2).sort();
-  return allKeys;
+const getUniqueKeys = (object1, object2) => {
+  const keys1 = _.keys(object1);
+  const keys2 = _.keys(object2);
+  const uniqueKeys = _.union(keys1, keys2).sort();
+  return uniqueKeys;
 };
 
 const getObjectDifferences = (data1, data2) => {
@@ -55,7 +54,7 @@ const getObjectDifferences = (data1, data2) => {
     });
     return result;
   };
-  return renderDiff(iter(data1, data2), '  ', 2);
+  return iter(data1, data2);
 };
 
 export default getObjectDifferences;
