@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import getObject from './parsers.js';
-import getObjectDifferences from './utilities.js';
+import getObjectDifferences from './diff.js';
 
 const readFile = (filePath) => fs.readFileSync(filePath, 'utf-8');
 const getFileExtension = (filePath) => path.extname(filePath);
