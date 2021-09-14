@@ -4,7 +4,8 @@ import path from 'path';
 import { cwd } from 'process';
 import { Command } from '../node_modules/commander/esm.mjs';
 import genDiff from '../src/index.js';
-import stylish from '../src/stylish.js';
+import stylish from '../src/formatters/stylish.js';
+// import plain from '../src/formatters/plain.js';
 
 const program = new Command();
 const getFilePath = (fileName) => path.resolve(`${cwd()}`, '__fixtures__', `${fileName}`);
@@ -15,13 +16,9 @@ program
   .option('-f, --format [type]', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2> [renderer]')
   .action((fileName1, fileName2, render = stylish) => {
-    let currentRender = render;
-    if (render === undefined) {
-      currentRender = stylish;
-    }
     const filePath1 = getFilePath(fileName1);
     const filePath2 = getFilePath(fileName2);
-    console.log(genDiff(filePath1, filePath2, currentRender));
+    console.log(genDiff(filePath1, filePath2, render));
   });
 
 program.parse(process.argv);
