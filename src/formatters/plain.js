@@ -14,33 +14,33 @@ const getValue = (value) => {
 };
 
 const plain = (diff) => {
-  const iter = (innerDiff, route) => {
+  const iter = (innerDiff, path) => {
     const plainResult = innerDiff
       .filter((element) => element.condition !== 'not changed')
       .map((element) => {
-        const ancestor = `${route}${element.name}`;
+        const nodeName = `${path}${element.name}`;
         if (element.condition === 'changed') {
-          return `Property '${ancestor}' was updated. From ${getValue(element.firstValue)} to ${getValue(
+          return `Property '${nodeName}' was updated. From ${getValue(element.firstValue)} to ${getValue(
             element.secondValue,
           )}`;
         }
         if (element.condition === 'deleted') {
-          return `Property '${ancestor}' was removed`;
+          return `Property '${nodeName}' was removed`;
         }
         if (element.condition === 'added') {
-          return `Property '${ancestor}' was added with value: ${getValue(element.secondValue)}`;
+          return `Property '${nodeName}' was added with value: ${getValue(element.secondValue)}`;
         }
         if (element.nodeCondition === 'added') {
-          return `Property '${ancestor}' was added with value: [complex value]`;
+          return `Property '${nodeName}' was added with value: [complex value]`;
         }
         if (element.nodeCondition === 'deleted') {
-          return `Property '${ancestor}' was removed`;
+          return `Property '${nodeName}' was removed`;
         }
         if (_.has(element, 'secondValue')) {
-          return `Property '${ancestor}' was updated. From [complex value] to ${getValue(element.secondValue)}`;
+          return `Property '${nodeName}' was updated. From [complex value] to ${getValue(element.secondValue)}`;
         }
         if (element.condition === 'has children') {
-          return `${iter(element.children, `${ancestor}.`)}`;
+          return `${iter(element.children, `${nodeName}.`)}`;
         }
         return `${element.name}`;
       });
