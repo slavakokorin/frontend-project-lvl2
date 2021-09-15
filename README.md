@@ -23,8 +23,12 @@ $ make install
 
 ## Example comparing not flat json files
 
-[![asciicast](https://asciinema.org/a/435070.svg)](https://asciinema.org/a/435070)
+[![asciicast](https://asciinema.org/a/5LZ4okvj13PQqJGopkol0OlB7.svg)](https://asciinema.org/a/5LZ4okvj13PQqJGopkol0OlB7)
 
 ## Example selection of diff-formatters
 
-[![asciicast](https://asciinema.org/a/435957.svg)](https://asciinema.org/a/435957)
+[![asciicast](https://asciinema.org/a/1kyKxUhCEIMhz3ClrMeqLDck0.svg)](https://asciinema.org/a/1kyKxUhCEIMhz3ClrMeqLDck0)
+
+## Example JSON output
+
+[![asciicast](https://asciinema.org/a/Q3YXT8QDa61TqzcyJGImIdVQr.svg)](https://asciinema.org/a/Q3YXT8QDa61TqzcyJGImIdVQr)
