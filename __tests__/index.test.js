@@ -2,9 +2,6 @@ import { test, expect } from '@jest/globals';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
-import stylish from '../src/formatters/stylish.js';
-import plain from '../src/formatters/plain.js';
-import getJSON from '../src/formatters/json.js';
 
 // следующие две строки нужны для работы __dirname
 const __filename = fileURLToPath(import.meta.url);
