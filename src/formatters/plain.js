@@ -13,7 +13,7 @@ const getValue = (value) => {
   return value;
 };
 
-const plain = (diff) => {
+const getPlain = (diff) => {
   const iter = (innerDiff, path) => {
     const plainResult = innerDiff
       .filter((element) => element.condition !== 'not changed')
@@ -50,4 +50,4 @@ const plain = (diff) => {
   return iter(diff, '');
 };
 
-export default plain;
+export default getPlain;

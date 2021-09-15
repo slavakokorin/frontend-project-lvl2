@@ -1,11 +1,15 @@
-import stylish from './stylish.js';
-import plain from './plain.js';
+import getStylish from './stylish.js';
+import getPlain from './plain.js';
+import getJSON from './json.js';
 
 const getFormatter = (str) => {
   if (str === 'plain') {
-    return plain;
+    return getPlain;
   }
-  return stylish;
+  if (str === 'json') {
+    return getJSON;
+  }
+  return getStylish;
 };
 
 export default getFormatter;

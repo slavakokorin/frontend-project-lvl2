@@ -13,11 +13,9 @@ const getObjectDifferences = (data1, data2) => {
     const result = uniqueKeys.map((key) => {
       const diffInfo = { name: key };
       if (!_.has(currentData2, key) && !_.isObject(currentData1[key])) {
-        // console.log(key);
         diffInfo.condition = 'deleted';
         diffInfo.firstValue = currentData1[key];
       } else if (!_.has(currentData1, key) && !_.isObject(currentData2[key])) {
-        // console.log(key);
         diffInfo.condition = 'added';
         diffInfo.secondValue = currentData2[key];
       } else if (
@@ -25,7 +23,6 @@ const getObjectDifferences = (data1, data2) => {
         !_.isObject(currentData2[key]) &&
         currentData1[key] === currentData2[key]
       ) {
-        // console.log(key);
         diffInfo.condition = 'not changed';
         diffInfo.firstValue = currentData1[key];
       } else if (
@@ -33,28 +30,23 @@ const getObjectDifferences = (data1, data2) => {
         (!_.isObject(currentData2[key]) || currentData2[key] === null) &&
         currentData1[key] !== currentData2[key]
       ) {
-        // console.log(key);
         diffInfo.condition = 'changed';
         diffInfo.firstValue = currentData1[key];
         diffInfo.secondValue = currentData2[key];
       } else if (_.isObject(currentData1[key]) && _.isObject(currentData2[key])) {
-        // console.log(`chahged: ${key}`);
         diffInfo.nodeCondition = 'changed';
         diffInfo.condition = 'has children';
         diffInfo.children = iter(currentData1[key], currentData2[key]);
       } else if (!_.isObject(currentData1[key]) && _.isObject(currentData2[key])) {
-        // console.log(`added: ${key}`);
         diffInfo.nodeCondition = 'added';
         diffInfo.condition = 'has children';
         diffInfo.children = iter(currentData2[key], currentData2[key]);
       } else if (!_.isObject(currentData2[key]) && _.isObject(currentData1[key])) {
         if (!_.has(currentData2, key)) {
-          // console.log(`deleted: ${key}`);
           diffInfo.nodeCondition = 'deleted';
           diffInfo.condition = 'has children';
           diffInfo.children = iter(currentData1[key], currentData1[key]);
         } else if (_.has(currentData1, key) || _.has(currentData2, key)) {
-          // console.log(`updated: ${key}`);
           diffInfo.nodeCondition = 'updated';
           diffInfo.firstValue = currentData1[key];
           diffInfo.secondValue = currentData2[key];
