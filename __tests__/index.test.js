@@ -15,7 +15,7 @@ const getFixturePath = (fileName) => path.join(__dirname, '..', '__fixtures__', 
 test('comparing flat json files', () => {
   const readFirstFile = getFixturePath('file1.json');
   const readSecondFile = getFixturePath('file2.json');
-  expect(genDiff(readFirstFile, readSecondFile, stylish)).toEqual(
+  expect(genDiff(readFirstFile, readSecondFile, 'stylish')).toEqual(
     `{
   - follow: false
     host: hexlet.io
@@ -30,7 +30,7 @@ test('comparing flat json files', () => {
 test('comparing flat yaml files', () => {
   const readFirstFile = getFixturePath('file3.yaml');
   const readSecondFile = getFixturePath('file4.yaml');
-  expect(genDiff(readFirstFile, readSecondFile, stylish)).toEqual(
+  expect(genDiff(readFirstFile, readSecondFile, 'stylish')).toEqual(
     `{
   - follow: false
     host: hexlet.io
@@ -45,7 +45,7 @@ test('comparing flat yaml files', () => {
 test('comparing not flat json files', () => {
   const readFirstFile = getFixturePath('file5.json');
   const readSecondFile = getFixturePath('file6.json');
-  expect(genDiff(readFirstFile, readSecondFile, stylish)).toEqual(
+  expect(genDiff(readFirstFile, readSecondFile, 'stylish')).toEqual(
     `{
     common: {
       + follow: false
@@ -96,7 +96,7 @@ test('comparing not flat json files', () => {
 test('plain output', () => {
   const readFirstFile = getFixturePath('file5.json');
   const readSecondFile = getFixturePath('file6.json');
-  expect(genDiff(readFirstFile, readSecondFile, plain)).toEqual(
+  expect(genDiff(readFirstFile, readSecondFile, 'plain')).toEqual(
     `Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
 Property 'common.setting3' was updated. From true to null
@@ -114,7 +114,7 @@ Property 'group3' was added with value: [complex value]`,
 test('JSON output', () => {
   const readFirstFile = getFixturePath('file5.json');
   const readSecondFile = getFixturePath('file6.json');
-  expect(genDiff(readFirstFile, readSecondFile, getJSON)).toEqual(
+  expect(genDiff(readFirstFile, readSecondFile, 'json')).toEqual(
     `[
   {
     "name": "common",
