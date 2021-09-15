@@ -1,4 +1,4 @@
-Hi! В этом репозитории реализован учебный проект по работе с такой сущьностью JavaScript, как ОБЪЕКТЫ. Разработка ведётся через создание тестов в фреймворке Jest.
+Hi! В этом репозитории реализован учебный проект по работе с такой сущьностью JavaScript, как ОБЪЕКТЫ. Проводится сравнение двух состояний объекта и вывод информации о найденых различиях. Используется commander - удобное решение для node.js интерфейсов. Разработка ведётся через создание тестов в фреймворке Jest.
 
 ##
 
@@ -24,3 +24,7 @@ $ make install
 ## Example comparing not flat json files
 
 [![asciicast](https://asciinema.org/a/435070.svg)](https://asciinema.org/a/435070)
+
+## Example selection of diff-formatters
+
+[![asciicast](https://asciinema.org/a/435957.svg)](https://asciinema.org/a/435957)
