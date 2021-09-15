@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
 import stylish from '../src/formatters/stylish.js';
 import plain from '../src/formatters/plain.js';
+import getJSON from '../src/formatters/json.js';
 
 // следующие две строки нужны для работы __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -107,5 +108,178 @@ Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`,
+  );
+});
+
+test('JSON output', () => {
+  const readFirstFile = getFixturePath('file5.json');
+  const readSecondFile = getFixturePath('file6.json');
+  expect(genDiff(readFirstFile, readSecondFile, getJSON)).toEqual(
+    `[
+  {
+    "name": "common",
+    "nodeCondition": "changed",
+    "condition": "has children",
+    "children": [
+      {
+        "name": "follow",
+        "condition": "added",
+        "secondValue": false
+      },
+      {
+        "name": "setting1",
+        "condition": "not changed",
+        "firstValue": "Value 1"
+      },
+      {
+        "name": "setting2",
+        "condition": "deleted",
+        "firstValue": 200
+      },
+      {
+        "name": "setting3",
+        "condition": "changed",
+        "firstValue": true,
+        "secondValue": null
+      },
+      {
+        "name": "setting4",
+        "condition": "added",
+        "secondValue": "blah blah"
+      },
+      {
+        "name": "setting5",
+        "nodeCondition": "added",
+        "condition": "has children",
+        "children": [
+          {
+            "name": "key5",
+            "condition": "not changed",
+            "firstValue": "value5"
+          }
+        ]
+      },
+      {
+        "name": "setting6",
+        "nodeCondition": "changed",
+        "condition": "has children",
+        "children": [
+          {
+            "name": "doge",
+            "nodeCondition": "changed",
+            "condition": "has children",
+            "children": [
+              {
+                "name": "wow",
+                "condition": "changed",
+                "firstValue": "",
+                "secondValue": "so much"
+              }
+            ]
+          },
+          {
+            "name": "key",
+            "condition": "not changed",
+            "firstValue": "value"
+          },
+          {
+            "name": "ops",
+            "condition": "added",
+            "secondValue": "vops"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "group1",
+    "nodeCondition": "changed",
+    "condition": "has children",
+    "children": [
+      {
+        "name": "baz",
+        "condition": "changed",
+        "firstValue": "bas",
+        "secondValue": "bars"
+      },
+      {
+        "name": "foo",
+        "condition": "not changed",
+        "firstValue": "bar"
+      },
+      {
+        "name": "nest",
+        "nodeCondition": "updated",
+        "firstValue": {
+          "key": "value"
+        },
+        "secondValue": "str",
+        "condition": "has children",
+        "children": [
+          {
+            "name": "key",
+            "condition": "not changed",
+            "firstValue": "value"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "group2",
+    "nodeCondition": "deleted",
+    "condition": "has children",
+    "children": [
+      {
+        "name": "abc",
+        "condition": "not changed",
+        "firstValue": 12345
+      },
+      {
+        "name": "deep",
+        "nodeCondition": "changed",
+        "condition": "has children",
+        "children": [
+          {
+            "name": "id",
+            "condition": "not changed",
+            "firstValue": 45
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "group3",
+    "nodeCondition": "added",
+    "condition": "has children",
+    "children": [
+      {
+        "name": "deep",
+        "nodeCondition": "changed",
+        "condition": "has children",
+        "children": [
+          {
+            "name": "id",
+            "nodeCondition": "changed",
+            "condition": "has children",
+            "children": [
+              {
+                "name": "number",
+                "condition": "not changed",
+                "firstValue": 45
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "fee",
+        "condition": "not changed",
+        "firstValue": 100500
+      }
+    ]
+  }
+]`,
   );
 });
