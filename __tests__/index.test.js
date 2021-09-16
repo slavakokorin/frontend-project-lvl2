@@ -206,7 +206,6 @@ test('JSON output', () => {
       },
       {
         "name": "nest",
-        "nodeCondition": "updated",
         "firstValue": {
           "key": "value"
         },

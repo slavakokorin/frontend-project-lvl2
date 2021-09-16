@@ -47,7 +47,6 @@ const getObjectDifferences = (data1, data2) => {
           diffInfo.condition = 'has children';
           diffInfo.children = iter(currentData1[key], currentData1[key]);
         } else if (_.has(currentData1, key) || _.has(currentData2, key)) {
-          diffInfo.nodeCondition = 'updated';
           diffInfo.firstValue = currentData1[key];
           diffInfo.secondValue = currentData2[key];
           diffInfo.condition = 'has children';
