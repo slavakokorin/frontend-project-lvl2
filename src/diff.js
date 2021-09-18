@@ -12,6 +12,7 @@ const getObjectDifferences = (data1, data2) => {
   const iter = (currentData1, currentData2) => {
     const keys = getUniqueKeys(currentData1, currentData2);
     const result = keys.map((key) => {
+      // const diffInfo = { name: key };
       if (!_.has(currentData2, key)) {
         if (!_.isObject(currentData1[key])) {
           return {
@@ -60,18 +61,6 @@ const getObjectDifferences = (data1, data2) => {
             firstValue: currentData1[key],
           };
         }
-        if (
-          !_.isObject(currentData1[key]) &&
-          !_.isObject(currentData2[key]) &&
-          currentData1[key] !== currentData2[key]
-        ) {
-          return {
-            name: key,
-            condition: 'changed',
-            firstValue: currentData1[key],
-            secondValue: currentData2[key],
-          };
-        }
         if (_.isObject(currentData1[key]) && !_.isObject(currentData2[key])) {
           return {
             name: key,
@@ -81,14 +70,23 @@ const getObjectDifferences = (data1, data2) => {
             children: iter(currentData1[key], currentData1[key]),
           };
         }
+        if (!_.isObject(currentData1[key]) && _.isObject(currentData2[key])) {
+          return {
+            name: key,
+            nodeCondition: 'updated to obj',
+            firstValue: currentData1[key],
+            secondValue: currentData2[key],
+            children: iter(currentData2[key], currentData2[key]),
+          };
+        }
       }
       return {
         name: key,
-        nodeCondition: 'updated to obj',
+        condition: 'changed',
         firstValue: currentData1[key],
         secondValue: currentData2[key],
-        children: iter(currentData2[key], currentData2[key]),
       };
+      // return diffInfo;
     });
     return result;
   };
