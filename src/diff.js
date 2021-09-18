@@ -3,7 +3,7 @@ import _ from 'lodash';
 const getUniqueKeys = (object1, object2) => {
   const keys1 = _.keys(object1);
   const keys2 = _.keys(object2);
-  const uniqueKeys = _.union(keys1, keys2).sort();
+  const uniqueKeys = _.union(_.cloneDeep(keys1), _.cloneDeep(keys2)).sort();
   return uniqueKeys;
 };
 
