@@ -12,45 +12,48 @@ const getObjectDifferences = (data1, data2) => {
     const uniqueKeys = getUniqueKeys(currentData1, currentData2);
     const result = uniqueKeys.map((key) => {
       const diffInfo = { name: key };
-      if (!_.has(currentData2, key) && !_.isObject(currentData1[key])) {
-        diffInfo.condition = 'deleted';
-        diffInfo.firstValue = currentData1[key];
-      } else if (!_.has(currentData1, key) && !_.isObject(currentData2[key])) {
-        diffInfo.condition = 'added';
-        diffInfo.secondValue = currentData2[key];
-      } else if (
-        !_.isObject(currentData1[key]) &&
-        !_.isObject(currentData2[key]) &&
-        currentData1[key] === currentData2[key]
-      ) {
-        diffInfo.condition = 'not changed';
-        diffInfo.firstValue = currentData1[key];
-      } else if (
-        (!_.isObject(currentData1[key]) || currentData1[key] === null) &&
-        (!_.isObject(currentData2[key]) || currentData2[key] === null) &&
-        currentData1[key] !== currentData2[key]
-      ) {
-        diffInfo.condition = 'changed';
-        diffInfo.firstValue = currentData1[key];
-        diffInfo.secondValue = currentData2[key];
-      } else if (_.isObject(currentData1[key]) && _.isObject(currentData2[key])) {
-        diffInfo.nodeCondition = 'changed';
-        diffInfo.condition = 'has children';
-        diffInfo.children = iter(currentData1[key], currentData2[key]);
-      } else if (!_.isObject(currentData1[key]) && _.isObject(currentData2[key])) {
-        diffInfo.nodeCondition = 'added';
-        diffInfo.condition = 'has children';
-        diffInfo.children = iter(currentData2[key], currentData2[key]);
-      } else if (!_.isObject(currentData2[key]) && _.isObject(currentData1[key])) {
-        if (!_.has(currentData2, key)) {
+      if (!_.has(currentData2, key)) {
+        if (!_.isObject(currentData1[key])) {
+          diffInfo.condition = 'deleted';
+          diffInfo.firstValue = currentData1[key];
+        } else if (_.isObject(currentData1, key)) {
           diffInfo.nodeCondition = 'deleted';
-          diffInfo.condition = 'has children';
           diffInfo.children = iter(currentData1[key], currentData1[key]);
-        } else if (_.has(currentData1, key) || _.has(currentData2, key)) {
+        }
+      } else if (!_.has(currentData1, key)) {
+        if (!_.isObject(currentData2[key])) {
+          diffInfo.condition = 'added';
+          diffInfo.secondValue = currentData2[key];
+        } else if (_.isObject(currentData2[key])) {
+          diffInfo.nodeCondition = 'added';
+          diffInfo.secondValue = currentData2[key];
+          diffInfo.children = iter(currentData2[key], currentData2[key]);
+        }
+      } else if (_.has(currentData1, key) && _.has(currentData2, key)) {
+        if (_.isObject(currentData1[key]) && _.isObject(currentData2[key])) {
+          diffInfo.nodeCondition = 'not changed';
+          diffInfo.children = iter(currentData1[key], currentData2[key]);
+        } else if (currentData1[key] === currentData2[key]) {
+          diffInfo.condition = 'not changed';
+          diffInfo.firstValue = currentData1[key];
+        } else if (
+          !_.isObject(currentData1[key]) &&
+          !_.isObject(currentData2[key]) &&
+          currentData1[key] !== currentData2[key]
+        ) {
+          diffInfo.condition = 'changed';
           diffInfo.firstValue = currentData1[key];
           diffInfo.secondValue = currentData2[key];
-          diffInfo.condition = 'has children';
+        } else if (_.isObject(currentData1[key]) && !_.isObject(currentData2[key])) {
+          diffInfo.nodeCondition = 'updated to str';
+          diffInfo.firstValue = currentData1[key];
+          diffInfo.secondValue = currentData2[key];
           diffInfo.children = iter(currentData1[key], currentData1[key]);
+        } else if (!_.isObject(currentData1[key]) && _.isObject(currentData2[key])) {
+          diffInfo.nodeCondition = 'updated to obj';
+          diffInfo.firstValue = currentData1[key];
+          diffInfo.secondValue = currentData2[key];
+          diffInfo.children = iter(currentData2[key], currentData2[key]);
         }
       }
       return diffInfo;

@@ -15,8 +15,8 @@ const genDiff = (filePath1, filePath2, format) => {
   const data1 = getObject(content1, fileExtens1);
   const data2 = getObject(сontent2, fileExtens2);
   const diff = getObjectDifferences(data1, data2);
-  const formatter = getFormatter(format);
-  return formatter(diff);
+  const render = getFormatter(format);
+  return render(diff);
 };
 
 export default genDiff;
