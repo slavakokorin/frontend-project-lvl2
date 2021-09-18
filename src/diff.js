@@ -12,52 +12,83 @@ const getObjectDifferences = (data1, data2) => {
   const iter = (currentData1, currentData2) => {
     const keys = getUniqueKeys(currentData1, currentData2);
     const result = keys.map((key) => {
-      const diffInfo = { name: key };
       if (!_.has(currentData2, key)) {
         if (!_.isObject(currentData1[key])) {
-          diffInfo.condition = 'deleted';
-          diffInfo.firstValue = currentData1[key];
-        } else if (_.isObject(currentData1, key)) {
-          diffInfo.nodeCondition = 'deleted';
-          diffInfo.children = iter(currentData1[key], currentData1[key]);
+          return {
+            name: key,
+            condition: 'deleted',
+            firstValue: currentData1[key],
+          };
         }
-      } else if (!_.has(currentData1, key)) {
+        if (_.isObject(currentData1, key)) {
+          return {
+            name: key,
+            nodeCondition: 'deleted',
+            children: iter(currentData1[key], currentData1[key]),
+          };
+        }
+      }
+      if (!_.has(currentData1, key)) {
         if (!_.isObject(currentData2[key])) {
-          diffInfo.condition = 'added';
-          diffInfo.secondValue = currentData2[key];
-        } else if (_.isObject(currentData2[key])) {
-          diffInfo.nodeCondition = 'added';
-          diffInfo.secondValue = currentData2[key];
-          diffInfo.children = iter(currentData2[key], currentData2[key]);
+          return {
+            name: key,
+            condition: 'added',
+            secondValue: currentData2[key],
+          };
         }
-      } else if (_.has(currentData1, key) && _.has(currentData2, key)) {
+        if (_.isObject(currentData2[key])) {
+          return {
+            name: key,
+            nodeCondition: 'added',
+            secondValue: currentData2[key],
+            children: iter(currentData2[key], currentData2[key]),
+          };
+        }
+      }
+      if (_.has(currentData1, key) && _.has(currentData2, key)) {
         if (_.isObject(currentData1[key]) && _.isObject(currentData2[key])) {
-          diffInfo.nodeCondition = 'not changed';
-          diffInfo.children = iter(currentData1[key], currentData2[key]);
-        } else if (currentData1[key] === currentData2[key]) {
-          diffInfo.condition = 'not changed';
-          diffInfo.firstValue = currentData1[key];
-        } else if (
+          return {
+            name: key,
+            nodeCondition: 'not changed',
+            children: iter(currentData1[key], currentData2[key]),
+          };
+        }
+        if (currentData1[key] === currentData2[key]) {
+          return {
+            name: key,
+            condition: 'not changed',
+            firstValue: currentData1[key],
+          };
+        }
+        if (
           !_.isObject(currentData1[key]) &&
           !_.isObject(currentData2[key]) &&
           currentData1[key] !== currentData2[key]
         ) {
-          diffInfo.condition = 'changed';
-          diffInfo.firstValue = currentData1[key];
-          diffInfo.secondValue = currentData2[key];
-        } else if (_.isObject(currentData1[key]) && !_.isObject(currentData2[key])) {
-          diffInfo.nodeCondition = 'updated to str';
-          diffInfo.firstValue = currentData1[key];
-          diffInfo.secondValue = currentData2[key];
-          diffInfo.children = iter(currentData1[key], currentData1[key]);
-        } else if (!_.isObject(currentData1[key]) && _.isObject(currentData2[key])) {
-          diffInfo.nodeCondition = 'updated to obj';
-          diffInfo.firstValue = currentData1[key];
-          diffInfo.secondValue = currentData2[key];
-          diffInfo.children = iter(currentData2[key], currentData2[key]);
+          return {
+            name: key,
+            condition: 'changed',
+            firstValue: currentData1[key],
+            secondValue: currentData2[key],
+          };
+        }
+        if (_.isObject(currentData1[key]) && !_.isObject(currentData2[key])) {
+          return {
+            name: key,
+            nodeCondition: 'updated to str',
+            firstValue: currentData1[key],
+            secondValue: currentData2[key],
+            children: iter(currentData1[key], currentData1[key]),
+          };
         }
       }
-      return diffInfo;
+      return {
+        name: key,
+        nodeCondition: 'updated to obj',
+        firstValue: currentData1[key],
+        secondValue: currentData2[key],
+        children: iter(currentData2[key], currentData2[key]),
+      };
     });
     return result;
   };
