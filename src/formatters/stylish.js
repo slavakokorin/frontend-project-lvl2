@@ -1,44 +1,36 @@
-import _ from 'lodash';
-
 const getStylish = (diff, replacer = '  ', spacesCount = 2) => {
-  const iter = (currentValue, depth) => {
+  const iter = (currentDiffValue, depth) => {
     const firstSpace = replacer.repeat(spacesCount * depth);
     const secondSpace = replacer.repeat(spacesCount * (depth - 1));
-    const makeString = (element, symbol, value) =>
-      `\n${firstSpace.slice(2)}${symbol} ${element.name}: ${element[value]}`;
-    const resultString = ['{'];
-    _.mapValues(currentValue, (element) => {
+    const makeString = (element, symbol, value) => `\n${firstSpace.slice(2)}${symbol} ${element.name}: ${element[value]}`;
+    const resultString = currentDiffValue.map((element) => {
       if (element.condition === 'not changed' || element.nodeCondition === 'not changed') {
-        if (element.nodeCondition === 'not changed') {
-          resultString.push(`\n${firstSpace}${element.name}: ${iter(element.children, depth + 1)}`);
-        } else {
-          resultString.push(makeString(element, ' ', 'firstValue'));
-        }
-      } else if (element.condition === 'added' || element.nodeCondition === 'added') {
-        if (element.nodeCondition === 'added') {
-          resultString.push(`\n${firstSpace.slice(2)}+ ${element.name}: ${iter(element.children, depth + 1)}`);
-        } else {
-          resultString.push(makeString(element, '+', 'secondValue'));
-        }
-      } else if (element.condition === 'deleted' || element.nodeCondition === 'deleted') {
-        if (element.nodeCondition === 'deleted') {
-          resultString.push(`\n${firstSpace.slice(2)}- ${element.name}: ${iter(element.children, depth + 1)}`);
-        } else {
-          resultString.push(makeString(element, '-', 'firstValue'));
-        }
-      } else if (element.nodeCondition === 'updated to str') {
-        resultString.push(`\n${firstSpace.slice(2)}- ${element.name}: ${iter(element.children, depth + 1)}`);
-        resultString.push(makeString(element, '+', 'secondValue'));
-      } else if (element.nodeCondition === 'updated to obj') {
-        resultString.push(makeString(element, '-', 'firstValue'));
-        resultString.push(`\n${firstSpace.slice(2)}+ ${element.name}: ${iter(element.children, depth + 1)}`);
-      } else if (element.condition === 'changed') {
-        resultString.push(makeString(element, '-', 'firstValue'));
-        resultString.push(makeString(element, '+', 'secondValue'));
+        return (element.nodeCondition === 'not changed')
+          ? [`\n${firstSpace}${element.name}: ${iter(element.children, depth + 1)}`]
+          : [makeString(element, ' ', 'firstValue')];
       }
+      if (element.condition === 'added' || element.nodeCondition === 'added') {
+        return (element.nodeCondition === 'added')
+          ? [`\n${firstSpace.slice(2)}+ ${element.name}: ${iter(element.children, depth + 1)}`]
+          : [makeString(element, '+', 'secondValue')];
+      }
+      if (element.condition === 'deleted' || element.nodeCondition === 'deleted') {
+        return (element.nodeCondition === 'deleted')
+          ? [`\n${firstSpace.slice(2)}- ${element.name}: ${iter(element.children, depth + 1)}`]
+          : [makeString(element, '-', 'firstValue')];
+      }
+      if (element.nodeCondition === 'updated to str') {
+        return [`\n${firstSpace.slice(2)}- ${element.name}: ${iter(element.children, depth + 1)}`,
+          makeString(element, '+', 'secondValue')].join('');
+      }
+      if (element.nodeCondition === 'updated to obj') {
+        return [makeString(element, '-', 'firstValue'),
+          `\n${firstSpace.slice(2)}+ ${element.name}: ${iter(element.children, depth + 1)}`].join('');
+      }
+      return [makeString(element, '-', 'firstValue'),
+        makeString(element, '+', 'secondValue')].join('');
     });
-    resultString.push(`\n${secondSpace}}`);
-    return resultString.join('');
+    return ['{', ...resultString, `\n${secondSpace}}`].join('');
   };
   return iter(diff, 1);
 };
