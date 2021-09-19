@@ -17,18 +17,22 @@ const getPlain = (diff) => {
       .map((element) => {
         const nodeName = `${path}${element.name}`;
         if (
-          element.condition === 'changed' ||
-          element.nodeCondition === 'updated to str' ||
-          element.nodeCondition === 'updated to obj'
+          element.condition === 'changed'
+          || element.nodeCondition === 'updated to str'
+          || element.nodeCondition === 'updated to obj'
         ) {
-          return `Property '${nodeName}' was updated. From ${getValue(element.firstValue)} to ${getValue(
-            element.secondValue,
-          )}`;
+          return `Property '${nodeName}' was updated. From ${getValue(element.firstValue)} to ${getValue(element.secondValue)}`;
         }
-        if (element.condition === 'deleted' || element.nodeCondition === 'deleted') {
+        if (
+          element.condition === 'deleted'
+          || element.nodeCondition === 'deleted'
+        ) {
           return `Property '${nodeName}' was removed`;
         }
-        if (element.condition === 'added' || element.nodeCondition === 'added') {
+        if (
+          element.condition === 'added'
+          || element.nodeCondition === 'added'
+        ) {
           return `Property '${nodeName}' was added with value: ${getValue(element.secondValue)}`;
         }
         if (_.has(element, 'nodeCondition')) {
