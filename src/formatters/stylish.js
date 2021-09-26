@@ -27,8 +27,7 @@ const getStylish = (diff, replacer = '  ', spacesCount = 2) => {
         return [makeString(element, '-', 'firstValue'),
           `\n${firstSpace.slice(2)}+ ${element.name}: ${iter(element.children, depth + 1)}`].join('');
       }
-      return [makeString(element, '-', 'firstValue'),
-        makeString(element, '+', 'secondValue')].join('');
+      return `${makeString(element, '-', 'firstValue')}${makeString(element, '+', 'secondValue')}`;
     });
     return ['{', ...resultString, `\n${secondSpace}}`].join('');
   };
