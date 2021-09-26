@@ -8,12 +8,12 @@ const getUniqueKeys = (object1, object2) => {
   return sortedKeys;
 };
 
-const getObjectDifferences = (data1, data2) => {
+const buildDiffTree = (data1, data2) => {
   const iter = (currentData1, currentData2) => {
     const keys = getUniqueKeys(currentData1, currentData2);
     const result = keys.map((key) => {
       if (!_.has(currentData2, key)) {
-        return (!_.isObject(currentData1[key]))
+        return !_.isObject(currentData1[key])
           ? {
             name: key,
             condition: 'deleted',
@@ -26,7 +26,7 @@ const getObjectDifferences = (data1, data2) => {
           };
       }
       if (!_.has(currentData1, key)) {
-        return (!_.isObject(currentData2[key]))
+        return !_.isObject(currentData2[key])
           ? {
             name: key,
             condition: 'added',
@@ -85,4 +85,4 @@ const getObjectDifferences = (data1, data2) => {
   return iter(data1, data2);
 };
 
-export default getObjectDifferences;
+export default buildDiffTree;
