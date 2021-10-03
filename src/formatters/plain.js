@@ -10,7 +10,7 @@ const getValue = (value) => {
   return value;
 };
 
-const getPlain = (diff) => {
+const getPlain = (innerTree) => {
   const iter = (innerDiff, path) => {
     const plainResult = innerDiff
       .filter((element) => element.condition !== 'not changed')
@@ -36,7 +36,7 @@ const getPlain = (diff) => {
 
     return plainResult.join('\n');
   };
-  return iter(diff, '');
+  return iter(innerTree, '');
 };
 
 export default getPlain;

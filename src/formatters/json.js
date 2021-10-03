@@ -1,3 +1,3 @@
-const getJSON = (content) => JSON.stringify(content, null, '  ');
+const getJSON = (innerTree) => JSON.stringify(innerTree, null, '  ');
 
 export default getJSON;

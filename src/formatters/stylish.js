@@ -1,4 +1,4 @@
-const getStylish = (diff, replacer = '  ', spacesCount = 2) => {
+const getStylish = (innerTree, replacer = '  ', spacesCount = 2) => {
   const iter = (currentDiffValue, depth) => {
     const firstSpace = replacer.repeat(spacesCount * depth);
     const secondSpace = replacer.repeat(spacesCount * (depth - 1));
@@ -31,7 +31,7 @@ const getStylish = (diff, replacer = '  ', spacesCount = 2) => {
     });
     return ['{', ...resultString, `\n${secondSpace}}`].join('');
   };
-  return iter(diff, 1);
+  return iter(innerTree, 1);
 };
 
 export default getStylish;
