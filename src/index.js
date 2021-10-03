@@ -3,7 +3,6 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 import parse from './parsers.js';
 import buildTree from './diff.js';
-//import getFormatter from './formatters/index.js';
 import formate from './formatters/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -24,8 +23,6 @@ const genDiff = (fileName1, fileName2, format) => {
   const data1 = parse(content1, formatName1);
   const data2 = parse(сontent2, formatName2);
   const innerTree = buildTree(data1, data2);
-  // const formatTree = getFormatter(format);
-  // return formatTree(innerTree);
   return formate(innerTree, format);
 };
 
