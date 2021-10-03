@@ -1,4 +1,4 @@
-const comparingTree = `{
+const JSONTree = `{
     common: {
       + follow: false
         setting1: Value 1
@@ -62,4 +62,4 @@ const comparingTree = `{
     }
 }`;
 
-export default comparingTree;
+export default JSONTree;
