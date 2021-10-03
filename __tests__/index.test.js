@@ -2,8 +2,8 @@ import { test, expect } from '@jest/globals';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
-import comparingTree from '../__fixtures__/forJSONcompar.js';
-import comparingYamlTree from '../__fixtures__/forYAMLcompar.js';
+import JSONTree from '../__fixtures__/JSONtree.js';
+import comparingYamlTree from '../__fixtures__/YAMLtree.js';
 import jsonOutput from '../__fixtures__/JSONoutput.js';
 import plainOutput from '../__fixtures__/PlainOutput.js';
 
@@ -16,26 +16,28 @@ test.each([
   {
     readFirstFile: getFixturePath('file3.json'),
     readSecondFile: getFixturePath('file4.json'),
-    expected: comparingTree,
+    expected: JSONTree,
+    format: 'stylish',
   },
-])('comparing not flat json files (build tree)', ({ readFirstFile, readSecondFile, expected }) => {
-  expect(genDiff(readFirstFile, readSecondFile, 'stylish')).toBe(expected);
-});
-
-test('comparing not flat yaml files (build tree)', () => {
-  expect(genDiff(getFixturePath('file5.yaml'), getFixturePath('file6.yaml'), 'stylish')).toEqual(comparingYamlTree);
-});
-
-test.each([
   {
     readFirstFile: getFixturePath('file3.json'),
     readSecondFile: getFixturePath('file4.json'),
     expected: plainOutput,
+    format: 'plain',
   },
-])('comparing not flat json files (plain output)', ({ readFirstFile, readSecondFile, expected }) => {
-  expect(genDiff(readFirstFile, readSecondFile, 'plain')).toBe(expected);
-});
+  {
+    readFirstFile: getFixturePath('file5.yaml'),
+    readSecondFile: getFixturePath('file6.yaml'),
+    expected: comparingYamlTree,
+    format: 'stylish',
+  },
+  {
+    readFirstFile: getFixturePath('file3.json'),
+    readSecondFile: getFixturePath('file4.json'),
+    expected: jsonOutput,
+    format: 'json',
+  },
 
-test('comparing not flat json files (JSON output)', () => {
-  expect(genDiff(getFixturePath('file3.json'), getFixturePath('file4.json'), 'json')).toEqual(jsonOutput);
+])('comparing not flat json and yaml files', ({ readFirstFile, readSecondFile, expected, format }) => {
+  expect(genDiff(readFirstFile, readSecondFile, format)).toBe(expected);
 });
