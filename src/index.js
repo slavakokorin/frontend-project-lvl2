@@ -1,9 +1,10 @@
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import parseToObject from './parsers.js';
-import buildDiffTree from './diff.js';
-import getFormatter from './formatters/index.js';
+import parse from './parsers.js';
+import buildTree from './diff.js';
+//import getFormatter from './formatters/index.js';
+import formate from './formatters/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,13 +19,14 @@ const genDiff = (fileName1, fileName2, format) => {
   const filePath2 = getFilePath(fileName2);
   const content1 = readFile(filePath1);
   const сontent2 = readFile(filePath2);
-  const firstFileFormat = extractFormat(filePath1);
-  const secondFileFormat = extractFormat(filePath2);
-  const dataForDifferences1 = parseToObject(content1, firstFileFormat);
-  const dataForDifferences2 = parseToObject(сontent2, secondFileFormat);
-  const diff = buildDiffTree(dataForDifferences1, dataForDifferences2);
-  const formatDiffTree = getFormatter(format);
-  return formatDiffTree(diff);
+  const formatName1 = extractFormat(filePath1);
+  const formatName2 = extractFormat(filePath2);
+  const data1 = parse(content1, formatName1);
+  const data2 = parse(сontent2, formatName2);
+  const innerTree = buildTree(data1, data2);
+  // const formatTree = getFormatter(format);
+  // return formatTree(innerTree);
+  return formate(innerTree, format);
 };
 
 export default genDiff;

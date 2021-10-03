@@ -8,7 +8,7 @@ const getUniqueKeys = (object1, object2) => {
   return sortedKeys;
 };
 
-const buildDiffTree = (data1, data2) => {
+const buildTree = (data1, data2) => {
   const iter = (currentData1, currentData2) => {
     const keys = getUniqueKeys(currentData1, currentData2);
     const result = keys.map((key) => {
@@ -85,4 +85,4 @@ const buildDiffTree = (data1, data2) => {
   return iter(data1, data2);
 };
 
-export default buildDiffTree;
+export default buildTree;
