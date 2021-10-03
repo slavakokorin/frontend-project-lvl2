@@ -37,7 +37,6 @@ test.each([
     expected: jsonOutput,
     format: 'json',
   },
-
 ])('comparing not flat json and yaml files', ({ readFirstFile, readSecondFile, expected, format }) => {
   expect(genDiff(readFirstFile, readSecondFile, format)).toBe(expected);
 });
