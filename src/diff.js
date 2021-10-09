@@ -10,7 +10,7 @@ const buildTree = (data1, data2) => {
           ? {
             name: key,
             condition: 'deleted',
-            firstValue: currentData1[key],
+            oldValue: currentData1[key],
           }
           : {
             name: key,
@@ -23,12 +23,12 @@ const buildTree = (data1, data2) => {
           ? {
             name: key,
             condition: 'added',
-            secondValue: currentData2[key],
+            newValue: currentData2[key],
           }
           : {
             name: key,
             nodeCondition: 'added',
-            secondValue: currentData2[key],
+            newValue: currentData2[key],
             children: iter(currentData2[key], currentData2[key]),
           };
       }
@@ -44,15 +44,15 @@ const buildTree = (data1, data2) => {
           return {
             name: key,
             condition: 'not changed',
-            firstValue: currentData1[key],
+            oldValue: currentData1[key],
           };
         }
         if (_.isObject(currentData1[key]) && !_.isObject(currentData2[key])) {
           return {
             name: key,
             nodeCondition: 'updated to str',
-            firstValue: currentData1[key],
-            secondValue: currentData2[key],
+            oldValue: currentData1[key],
+            newValue: currentData2[key],
             children: iter(currentData1[key], currentData1[key]),
           };
         }
@@ -60,8 +60,8 @@ const buildTree = (data1, data2) => {
           return {
             name: key,
             nodeCondition: 'updated to obj',
-            firstValue: currentData1[key],
-            secondValue: currentData2[key],
+            oldValue: currentData1[key],
+            newValue: currentData2[key],
             children: iter(currentData2[key], currentData2[key]),
           };
         }
@@ -69,8 +69,8 @@ const buildTree = (data1, data2) => {
       return {
         name: key,
         condition: 'changed',
-        firstValue: currentData1[key],
-        secondValue: currentData2[key],
+        oldValue: currentData1[key],
+        newValue: currentData2[key],
       };
     });
     return result;

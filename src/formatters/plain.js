@@ -20,13 +20,13 @@ const getPlain = (innerTree) => {
           || element.nodeCondition === 'updated to str'
           || element.nodeCondition === 'updated to obj'
         ) {
-          return `Property '${nodeName}' was updated. From ${getValue(element.firstValue)} to ${getValue(element.secondValue)}`;
+          return `Property '${nodeName}' was updated. From ${getValue(element.oldValue)} to ${getValue(element.newValue)}`;
         }
         if (element.condition === 'deleted' || element.nodeCondition === 'deleted') {
           return `Property '${nodeName}' was removed`;
         }
         if (element.condition === 'added' || element.nodeCondition === 'added') {
-          return `Property '${nodeName}' was added with value: ${getValue(element.secondValue)}`;
+          return `Property '${nodeName}' was added with value: ${getValue(element.newValue)}`;
         }
         if (_.has(element, 'nodeCondition')) {
           return `${iter(element.children, `${nodeName}.`)}`;
