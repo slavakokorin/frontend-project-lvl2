@@ -2,16 +2,14 @@ import getStylish from './stylish.js';
 import getPlain from './plain.js';
 import getJSON from './json.js';
 
-const formate = (innerTree, format) => {
-  if (format === 'plain') {
+const format = (innerTree, ontputFormat) => {
+  if (ontputFormat === 'plain') {
     return getPlain(innerTree);
   }
-  if (format === 'json') {
+  if (ontputFormat === 'json') {
     return getJSON(innerTree);
   }
-  if (format === 'stylish') {
-    return getStylish(innerTree);
-  }
+  return getStylish(innerTree);
 };
 
-export default formate;
+export default format;

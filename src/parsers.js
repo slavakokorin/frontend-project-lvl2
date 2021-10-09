@@ -6,6 +6,5 @@ const mapping = {
   yml: yaml.safeLoad,
 };
 
-//const parse = (content, format) => mapping[`${format.replace('.', '')}`](content);
 const parse = (content, format) => mapping[format](content);
 export default parse;
