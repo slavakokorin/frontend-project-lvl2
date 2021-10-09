@@ -6,49 +6,49 @@ const jsonOutput = `[
       {
         "name": "follow",
         "condition": "added",
-        "secondValue": false
+        "newValue": false
       },
       {
         "name": "setting1",
         "condition": "not changed",
-        "firstValue": "Value 1"
+        "oldValue": "Value 1"
       },
       {
         "name": "setting2",
         "condition": "deleted",
-        "firstValue": 200
+        "oldValue": 200
       },
       {
         "name": "setting3",
         "nodeCondition": "updated to obj",
-        "firstValue": true,
-        "secondValue": {
+        "oldValue": true,
+        "newValue": {
           "key": "value"
         },
         "children": [
           {
             "name": "key",
             "condition": "not changed",
-            "firstValue": "value"
+            "oldValue": "value"
           }
         ]
       },
       {
         "name": "setting4",
         "condition": "added",
-        "secondValue": "blah blah"
+        "newValue": "blah blah"
       },
       {
         "name": "setting5",
         "nodeCondition": "added",
-        "secondValue": {
+        "newValue": {
           "key5": "value5"
         },
         "children": [
           {
             "name": "key5",
             "condition": "not changed",
-            "firstValue": "value5"
+            "oldValue": "value5"
           }
         ]
       },
@@ -63,20 +63,20 @@ const jsonOutput = `[
               {
                 "name": "wow",
                 "condition": "changed",
-                "firstValue": "too much",
-                "secondValue": "so much"
+                "oldValue": "too much",
+                "newValue": "so much"
               }
             ]
           },
           {
             "name": "key",
             "condition": "not changed",
-            "firstValue": "value"
+            "oldValue": "value"
           },
           {
             "name": "ops",
             "condition": "added",
-            "secondValue": "vops"
+            "newValue": "vops"
           }
         ]
       }
@@ -89,26 +89,26 @@ const jsonOutput = `[
       {
         "name": "baz",
         "condition": "changed",
-        "firstValue": "bas",
-        "secondValue": "bars"
+        "oldValue": "bas",
+        "newValue": "bars"
       },
       {
         "name": "foo",
         "condition": "not changed",
-        "firstValue": "bar"
+        "oldValue": "bar"
       },
       {
         "name": "nest",
         "nodeCondition": "updated to str",
-        "firstValue": {
+        "oldValue": {
           "key": "value"
         },
-        "secondValue": "str",
+        "newValue": "str",
         "children": [
           {
             "name": "key",
             "condition": "not changed",
-            "firstValue": "value"
+            "oldValue": "value"
           }
         ]
       }
@@ -121,7 +121,7 @@ const jsonOutput = `[
       {
         "name": "abc",
         "condition": "not changed",
-        "firstValue": 12345
+        "oldValue": 12345
       },
       {
         "name": "deep",
@@ -130,7 +130,7 @@ const jsonOutput = `[
           {
             "name": "id",
             "condition": "not changed",
-            "firstValue": 45
+            "oldValue": 45
           }
         ]
       }
@@ -139,7 +139,7 @@ const jsonOutput = `[
   {
     "name": "group3",
     "nodeCondition": "added",
-    "secondValue": {
+    "newValue": {
       "deep": {
         "id": {
           "number": 45
@@ -159,7 +159,7 @@ const jsonOutput = `[
               {
                 "name": "number",
                 "condition": "not changed",
-                "firstValue": 45
+                "oldValue": 45
               }
             ]
           }
@@ -168,7 +168,7 @@ const jsonOutput = `[
       {
         "name": "fee",
         "condition": "not changed",
-        "firstValue": 100500
+        "oldValue": 100500
       }
     ]
   },
@@ -179,25 +179,25 @@ const jsonOutput = `[
       {
         "name": "default",
         "condition": "changed",
-        "firstValue": null,
-        "secondValue": ""
+        "oldValue": null,
+        "newValue": ""
       },
       {
         "name": "foo",
         "condition": "changed",
-        "firstValue": 0,
-        "secondValue": null
+        "oldValue": 0,
+        "newValue": null
       },
       {
         "name": "isNested",
         "condition": "changed",
-        "firstValue": false,
-        "secondValue": "none"
+        "oldValue": false,
+        "newValue": "none"
       },
       {
         "name": "key",
         "condition": "added",
-        "secondValue": false
+        "newValue": false
       },
       {
         "name": "nest",
@@ -206,26 +206,26 @@ const jsonOutput = `[
           {
             "name": "bar",
             "condition": "changed",
-            "firstValue": "",
-            "secondValue": 0
+            "oldValue": "",
+            "newValue": 0
           },
           {
             "name": "isNested",
             "condition": "deleted",
-            "firstValue": true
+            "oldValue": true
           }
         ]
       },
       {
         "name": "someKey",
         "condition": "added",
-        "secondValue": true
+        "newValue": true
       },
       {
         "name": "type",
         "condition": "changed",
-        "firstValue": "bas",
-        "secondValue": "bar"
+        "oldValue": "bas",
+        "newValue": "bar"
       }
     ]
   }
