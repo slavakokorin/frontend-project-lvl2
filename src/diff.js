@@ -1,17 +1,10 @@
 import _ from 'lodash';
 
-const getUniqueKeys = (object1, object2) => {
-  const keys1 = _.keys(object1);
-  const keys2 = _.keys(object2);
-  const uniqueKeys = _.union(keys1, keys2);
-  const sortedKeys = _.sortBy(uniqueKeys);
-  return sortedKeys;
-};
-
 const buildTree = (data1, data2) => {
   const iter = (currentData1, currentData2) => {
-    const keys = getUniqueKeys(currentData1, currentData2);
-    const result = keys.map((key) => {
+    const uniqueKeys = _.union(_.keys(currentData1), _.keys(currentData2));
+    const sortedKeys = _.sortBy(uniqueKeys);
+    const result = sortedKeys.map((key) => {
       if (!_.has(currentData2, key)) {
         return !_.isObject(currentData1[key])
           ? {
