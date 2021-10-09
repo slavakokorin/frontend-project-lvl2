@@ -9,7 +9,9 @@ const formate = (innerTree, format) => {
   if (format === 'json') {
     return getJSON(innerTree);
   }
-  return getStylish(innerTree);
+  if (format === 'stylish') {
+    return getStylish(innerTree);
+  }
 };
 
 export default formate;

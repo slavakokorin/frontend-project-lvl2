@@ -13,7 +13,7 @@ const getFilePath = (fileName) => path.resolve(__dirname, '..', '__fixtures__', 
 const readFile = (filePath) => fs.readFileSync(filePath, 'utf-8');
 const extractFormat = (filePath) => path.extname(filePath).replace('.', '');
 
-const genDiff = (fileName1, fileName2, format) => {
+const genDiff = (fileName1, fileName2, format = 'stylish') => {
   const filePath1 = getFilePath(fileName1);
   const filePath2 = getFilePath(fileName2);
   const content1 = readFile(filePath1);
