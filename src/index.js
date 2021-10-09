@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 const getFilePath = (fileName) => path.resolve(__dirname, '..', '__fixtures__', `${fileName}`);
 
 const readFile = (filePath) => fs.readFileSync(filePath, 'utf-8');
-const extractFormat = (filePath) => path.extname(filePath);
+const extractFormat = (filePath) => path.extname(filePath).replace('.', '');
 
 const genDiff = (fileName1, fileName2, format) => {
   const filePath1 = getFilePath(fileName1);
