@@ -16,7 +16,9 @@ $ make install
 
 1. --rormat stylish - output differences as tree
 2. --format plain   - output differences as list
-3. --format json    - output as JSON 
+3. --format json    - output as JSON
+
+##
 
 ### Hexlet tests and linter status:
 
@@ -24,6 +26,8 @@ $ make install
 [![Linter status](https://github.com/slavakokorin/frontend-project-lvl2/actions/workflows/Linter.yml/badge.svg)](https://github.com/slavakokorin/frontend-project-lvl2/actions/workflows/Linter.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8fb60f90f2fddb0efe0a/maintainability)](https://codeclimate.com/github/slavakokorin/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8fb60f90f2fddb0efe0a/test_coverage)](https://codeclimate.com/github/slavakokorin/frontend-project-lvl2/test_coverage)
+
+##
 
 ## Demonstration
 
