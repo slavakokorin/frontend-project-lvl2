@@ -1,40 +1,32 @@
+import fs from 'fs';
 import { test, expect } from '@jest/globals';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
-import JSONTree from '../__fixtures__/JSONtree.js';
-import comparingYamlTree from '../__fixtures__/YAMLtree.js';
-import jsonOutput from '../__fixtures__/JSONoutput.js';
-import plainOutput from '../__fixtures__/PlainOutput.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const getFixturePath = (fileName) => path.join(__dirname, '..', '__fixtures__', fileName);
+const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
 test.each([
   {
-    readFirstFile: getFixturePath('file3.json'),
-    readSecondFile: getFixturePath('file4.json'),
-    expected: JSONTree,
+    readFirstFile: getFixturePath('file1.json'),
+    readSecondFile: getFixturePath('file2.yaml'),
+    expected: readFile('stylishOutput.txt'),
     format: 'stylish',
   },
   {
-    readFirstFile: getFixturePath('file3.json'),
-    readSecondFile: getFixturePath('file4.json'),
-    expected: plainOutput,
+    readFirstFile: getFixturePath('file1.json'),
+    readSecondFile: getFixturePath('file2.yaml'),
+    expected: readFile('plainOutput.txt'),
     format: 'plain',
   },
   {
-    readFirstFile: getFixturePath('file5.yaml'),
-    readSecondFile: getFixturePath('file6.yaml'),
-    expected: comparingYamlTree,
-    format: 'stylish',
-  },
-  {
-    readFirstFile: getFixturePath('file3.json'),
-    readSecondFile: getFixturePath('file4.json'),
-    expected: jsonOutput,
+    readFirstFile: getFixturePath('file1.json'),
+    readSecondFile: getFixturePath('file2.yaml'),
+    expected: readFile('JSONOutput.txt'),
     format: 'json',
   },
 ])('comparing not flat json and yaml files', ({
