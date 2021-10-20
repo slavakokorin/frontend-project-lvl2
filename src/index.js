@@ -8,7 +8,7 @@ import format from './formatters/index.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const getFilePath = (fileName) => path.resolve(__dirname, '..', '__fixtures__', `${fileName}`);
+const getFilePath = (fileName) => path.resolve(__dirname, '..', '__fixtures__', fileName);
 
 const readFile = (filePath) => fs.readFileSync(filePath, 'utf-8');
 const extractFormat = (filePath) => path.extname(filePath).replace('.', '');
