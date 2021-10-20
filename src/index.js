@@ -8,14 +8,14 @@ import format from './formatters/index.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const getFilePath = (fileName) => path.resolve(__dirname, '..', '__fixtures__', fileName);
+const buildFilePath = (fileName) => path.resolve(__dirname, '..', '__fixtures__', fileName);
 
 const readFile = (filePath) => fs.readFileSync(filePath, 'utf-8');
 const extractFormat = (filePath) => path.extname(filePath).replace('.', '');
 
 const genDiff = (fileName1, fileName2, ontputFormat = 'stylish') => {
-  const filePath1 = getFilePath(fileName1);
-  const filePath2 = getFilePath(fileName2);
+  const filePath1 = buildFilePath(fileName1);
+  const filePath2 = buildFilePath(fileName2);
   const content1 = readFile(filePath1);
   const сontent2 = readFile(filePath2);
   const formatName1 = extractFormat(filePath1);
