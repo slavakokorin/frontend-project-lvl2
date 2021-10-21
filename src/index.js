@@ -1,16 +1,11 @@
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path';
 import fs from 'fs';
 import parse from './parsers.js';
 import buildTree from './diff.js';
 import format from './formatters/index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const buildFilePath = (fileName) => path.resolve(__dirname, '..', '__fixtures__', fileName);
-
-const readFile = (filePath) => fs.readFileSync(filePath, 'utf-8');
+const buildFilePath = (fileName) => path.resolve(process.cwd(), fileName);
+const readFile = (filePath) => fs.readFileSync(filePath, 'utf-8').trim();
 const extractFormat = (filePath) => path.extname(filePath).replace('.', '');
 
 const genDiff = (fileName1, fileName2, ontputFormat = 'stylish') => {
