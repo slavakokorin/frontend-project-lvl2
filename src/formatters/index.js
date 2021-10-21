@@ -11,7 +11,7 @@ const mapping = {
 
 const format = (innerTree, ontputFormat) => {
   if (!_.has(mapping, ontputFormat)) {
-    return getStylish(innerTree);
+    throw new Error(`Format: ${ontputFormat} is not supported. Use "plain", "json" or "stylish"`);
   }
   return mapping[ontputFormat](innerTree);
 };
