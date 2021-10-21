@@ -4,7 +4,7 @@ const getValue = (value) => {
   if (typeof value === 'string') {
     return `'${value}'`;
   }
-  if (_.isObject(value)) {
+  if (_.isPlainObject(value)) {
     return '[complex value]';
   }
   return value;
@@ -23,10 +23,10 @@ const getPlain = (innerTree) => {
           return `Property '${nodeName}' was removed`;
         }
         if (element.type === 'added') {
-          return `Property '${nodeName}' was added with value: ${getValue(element.newValue)}`;
+          return `Property '${nodeName}' was added with value: ${getValue(element.value)}`;
         }
         if (element.type === 'changed') {
-          return `Property '${nodeName}' was updated. From ${getValue(element.oldValue)} to ${getValue(element.newValue)}`;
+          return `Property '${nodeName}' was updated. From ${getValue(element.value1)} to ${getValue(element.value2)}`;
         }
         return `${element.name}`;
       });
