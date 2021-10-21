@@ -14,7 +14,6 @@ const genDiff = (fileName1, fileName2, ontputFormat = 'stylish') => {
   const content1 = readFile(filePath1);
   const сontent2 = readFile(filePath2);
   const formatName1 = extractFormat(filePath1);
-  console.log(formatName1);
   const formatName2 = extractFormat(filePath2);
   const data1 = parse(content1, formatName1);
   const data2 = parse(сontent2, formatName2);
