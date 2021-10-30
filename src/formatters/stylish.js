@@ -18,19 +18,18 @@ const getTreeElement = (elementName, symbol, elementValue, depth, replacer = '  
 const getStylish = (innerTree, replacer = '  ', spacesCount = 2) => {
   const iter = (currentDiffValue, depth) => {
     const resultString = currentDiffValue.map((element) => {
-      if (element.type === 'nested') {
-        return `\n${replacer.repeat(spacesCount * depth)}${element.name}: ${iter(element.children, depth + 1)}`;
+      switch (element.type) {
+        case 'nested':
+          return `\n${replacer.repeat(spacesCount * depth)}${element.name}: ${iter(element.children, depth + 1)}`;
+        case 'deleted':
+          return getTreeElement(element.name, '-', element.value, depth);
+        case 'added':
+          return getTreeElement(element.name, '+', element.value, depth);
+        case 'unchanged':
+          return getTreeElement(element.name, ' ', element.value, depth);
+        default:
+          return `${getTreeElement(element.name, '-', element.value1, depth)}${getTreeElement(element.name, '+', element.value2, depth)}`;
       }
-      if (element.type === 'deleted') {
-        return getTreeElement(element.name, '-', element.value, depth);
-      }
-      if (element.type === 'added') {
-        return getTreeElement(element.name, '+', element.value, depth);
-      }
-      if (element.type === 'unchanged') {
-        return getTreeElement(element.name, ' ', element.value, depth);
-      }
-      return `${getTreeElement(element.name, '-', element.value1, depth)}${getTreeElement(element.name, '+', element.value2, depth)}`;
     });
     return ['{', ...resultString, `\n${replacer.repeat(spacesCount * (depth - 1))}}`].join('');
   };
