@@ -30,7 +30,7 @@ const getStylish = (innerTree, replacer = '  ', spacesCount = 2) => {
         case 'changed':
           return `${getTreeElement(element.name, '-', element.value1, depth)}${getTreeElement(element.name, '+', element.value2, depth)}`;
         default:
-          throw new Error('Node type is not supported!');
+          throw new Error(`Element type ${element.type} is not supported!`);
       }
     });
     return ['{', ...resultString, `\n${replacer.repeat(spacesCount * (depth - 1))}}`].join('');
