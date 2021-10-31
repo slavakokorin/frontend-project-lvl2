@@ -1,12 +1,12 @@
 import _ from 'lodash';
-import getStylish from './stylish.js';
-import getPlain from './plain.js';
-import getJSON from './json.js';
+import formatStylish from './stylish.js';
+import formatPlain from './plain.js';
+import formatJSON from './json.js';
 
 const mapping = {
-  plain: getPlain,
-  stylish: getStylish,
-  json: getJSON,
+  plain: formatPlain,
+  stylish: formatStylish,
+  json: formatJSON,
 };
 
 const format = (innerTree, ontputFormat) => {

@@ -1,24 +1,24 @@
 import _ from 'lodash';
 
 const getValue = (value) => {
-  if (typeof value === 'string') {
-    return `'${value}'`;
+  if (value === null) {
+    return value;
   }
   if (_.isPlainObject(value)) {
     return '[complex value]';
   }
-  return value;
+  return !_.isString(value) ? String(value) : `'${value}'`;
 };
 
-const getPlain = (innerTree) => {
-  const iter = (innerDiff, path) => {
+const formatPlain = (innerTree) => {
+  const nodes = (innerDiff, path) => {
     const plainResult = innerDiff
       .filter((element) => element.type !== 'unchanged')
       .map((element) => {
         const nodeName = `${path}${element.name}`;
         switch (element.type) {
           case 'nested':
-            return `${iter(element.children, `${nodeName}.`)}`;
+            return `${nodes(element.children, `${nodeName}.`)}`;
           case 'deleted':
             return `Property '${nodeName}' was removed`;
           case 'added':
@@ -32,7 +32,7 @@ const getPlain = (innerTree) => {
 
     return plainResult.join('\n');
   };
-  return iter(innerTree, '');
+  return nodes(innerTree, '');
 };
 
-export default getPlain;
+export default formatPlain;
