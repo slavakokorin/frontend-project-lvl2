@@ -11,26 +11,11 @@ const buildFixturePath = (fileName) => path.join(__dirname, '..', '__fixtures__'
 const readFile = (filename) => fs.readFileSync(buildFixturePath(filename), 'utf-8');
 
 test.each([
-  {
-    readFirstFile: buildFixturePath('file1.json'),
-    readSecondFile: buildFixturePath('file2.yaml'),
-    expected: readFile('stylishOutput.txt'),
-    format: 'stylish',
-  },
-  {
-    readFirstFile: buildFixturePath('file1.json'),
-    readSecondFile: buildFixturePath('file2.yaml'),
-    expected: readFile('plainOutput.txt'),
-    format: 'plain',
-  },
-  {
-    readFirstFile: buildFixturePath('file1.json'),
-    readSecondFile: buildFixturePath('file2.yaml'),
-    expected: readFile('JSONOutput.txt'),
-    format: 'json',
-  },
-])('comparing not flat json and yaml files', ({
-  readFirstFile, readSecondFile, expected, format,
-}) => {
-  expect(genDiff(readFirstFile, readSecondFile, format)).toBe(expected);
+  { expected: 'stylishOutput.txt', format: 'stylish' },
+  { expected: 'plainOutput.txt', format: 'plain' },
+  { expected: 'JSONOutput.txt', format: 'json' },
+])('comparing not flat json and yaml files', ({ expected, format }) => {
+  const file1 = buildFixturePath('file1.json');
+  const file2 = buildFixturePath('file2.yaml');
+  expect(genDiff(file1, file2, format)).toBe(readFile(expected));
 });
