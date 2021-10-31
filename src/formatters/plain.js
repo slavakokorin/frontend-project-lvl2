@@ -25,8 +25,6 @@ const getPlain = (innerTree) => {
             return `Property '${nodeName}' was added with value: ${getValue(element.value)}`;
           case 'changed':
             return `Property '${nodeName}' was updated. From ${getValue(element.value1)} to ${getValue(element.value2)}`;
-          case 'unchanged':
-            return `${element.name}`;
           default:
             throw new Error(`Element type ${element.type} is not supported!`);
         }
