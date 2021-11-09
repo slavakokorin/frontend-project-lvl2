@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const getValue = (value) => {
+const stringify = (value) => {
   if (value === null) {
     return value;
   }
@@ -22,9 +22,9 @@ const formatPlain = (innerTree) => {
           case 'deleted':
             return `Property '${nodeName}' was removed`;
           case 'added':
-            return `Property '${nodeName}' was added with value: ${getValue(element.value)}`;
+            return `Property '${nodeName}' was added with value: ${stringify(element.value)}`;
           case 'changed':
-            return `Property '${nodeName}' was updated. From ${getValue(element.value1)} to ${getValue(element.value2)}`;
+            return `Property '${nodeName}' was updated. From ${stringify(element.value1)} to ${stringify(element.value2)}`;
           default:
             throw new Error(`Element type ${element.type} is not supported!`);
         }
