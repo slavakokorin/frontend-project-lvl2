@@ -7,7 +7,10 @@ const stringify = (value) => {
   if (_.isPlainObject(value)) {
     return '[complex value]';
   }
-  return !_.isString(value) ? String(value) : `'${value}'`;
+  if (_.isString(value)) {
+    return `'${value}'`;
+  }
+  return String(value);
 };
 
 const formatPlain = (innerTree) => {
