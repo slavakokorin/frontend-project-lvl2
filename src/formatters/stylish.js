@@ -1,41 +1,41 @@
 import _ from 'lodash';
 
-const buildSpace = (depth, replacer = '  ', spacesCount = 2) => replacer.repeat(spacesCount * depth);
+const ident = (depth, replacer = '  ', spacesCount = 2) => replacer.repeat(spacesCount * depth);
 
-const stringifyValue = (elementName, symbol, elementValue, depth) => {
+const stringifyValue = (nodeName, symbol, nodeValue, depth) => {
   const nodes = (name, sym, eValue, dep) => {
     if (!_.isPlainObject(eValue)) {
-      return `\n${buildSpace(depth).slice(2)}${sym} ${name}: ${eValue}`;
+      return `\n${ident(depth).slice(2)}${sym} ${name}: ${eValue}`;
     }
     const lines = _.entries(eValue).map(([key, value]) => `${stringifyValue(key, ' ', value, dep + 1)}`).join('');
 
-    return `\n${buildSpace(depth).slice(2)}${sym} ${name}: {${lines}\n${buildSpace(dep)}}`;
+    return `\n${ident(depth).slice(2)}${sym} ${name}: {${lines}\n${ident(dep)}}`;
   };
 
-  return nodes(elementName, symbol, elementValue, depth);
+  return nodes(nodeName, symbol, nodeValue, depth);
 };
 
 const formatStylish = (innerTree) => {
-  const nodes = (currentDiffValue, depth) => {
-    const resultString = currentDiffValue.map((element) => {
-      switch (element.type) {
+  const formatNodes = (nodes, depth) => {
+    const stylishResult = nodes.map((node) => {
+      switch (node.type) {
         case 'nested':
-          return `\n${buildSpace(depth)}${element.name}: ${nodes(element.children, depth + 1)}`;
+          return `\n${ident(depth)}${node.name}: ${formatNodes(node.children, depth + 1)}`;
         case 'deleted':
-          return stringifyValue(element.name, '-', element.value, depth);
+          return stringifyValue(node.name, '-', node.value, depth);
         case 'added':
-          return stringifyValue(element.name, '+', element.value, depth);
+          return stringifyValue(node.name, '+', node.value, depth);
         case 'unchanged':
-          return stringifyValue(element.name, ' ', element.value, depth);
+          return stringifyValue(node.name, ' ', node.value, depth);
         case 'changed':
-          return `${stringifyValue(element.name, '-', element.value1, depth)}${stringifyValue(element.name, '+', element.value2, depth)}`;
+          return `${stringifyValue(node.name, '-', node.value1, depth)}${stringifyValue(node.name, '+', node.value2, depth)}`;
         default:
-          throw new Error(`Element type ${element.type} is not supported!`);
+          throw new Error(`Element type ${node.type} is not supported!`);
       }
     });
-    return ['{', ...resultString, `\n${buildSpace(depth - 1)}}`].join('');
+    return ['{', ...stylishResult, `\n${ident(depth - 1)}}`].join('');
   };
-  return nodes(innerTree, 1);
+  return formatNodes(innerTree, 1);
 };
 
 export default formatStylish;
