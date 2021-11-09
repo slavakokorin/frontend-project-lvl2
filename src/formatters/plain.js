@@ -14,28 +14,28 @@ const stringify = (value) => {
 };
 
 const formatPlain = (innerTree) => {
-  const nodes = (innerDiff, path) => {
-    const plainResult = innerDiff
-      .filter((element) => element.type !== 'unchanged')
-      .map((element) => {
-        const nodeName = `${path}${element.name}`;
-        switch (element.type) {
+  const formatNodes = (nodes, path) => {
+    const plainResult = nodes
+      .filter((node) => node.type !== 'unchanged')
+      .map((node) => {
+        const nodeName = `${path}${node.name}`;
+        switch (node.type) {
           case 'nested':
-            return `${nodes(element.children, `${nodeName}.`)}`;
+            return `${formatNodes(node.children, `${nodeName}.`)}`;
           case 'deleted':
             return `Property '${nodeName}' was removed`;
           case 'added':
-            return `Property '${nodeName}' was added with value: ${stringify(element.value)}`;
+            return `Property '${nodeName}' was added with value: ${stringify(node.value)}`;
           case 'changed':
-            return `Property '${nodeName}' was updated. From ${stringify(element.value1)} to ${stringify(element.value2)}`;
+            return `Property '${nodeName}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
           default:
-            throw new Error(`Element type ${element.type} is not supported!`);
+            throw new Error(`Element type ${node.type} is not supported!`);
         }
       });
 
     return plainResult.join('\n');
   };
-  return nodes(innerTree, '');
+  return formatNodes(innerTree, '');
 };
 
 export default formatPlain;
