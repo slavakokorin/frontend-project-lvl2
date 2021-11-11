@@ -2,17 +2,20 @@ import _ from 'lodash';
 
 const ident = (depth, replacer = '  ', spacesCount = 2) => replacer.repeat(spacesCount * depth);
 
-const stringifyValue = (nodeName, symbol, nodeValue, depth) => {
-  const nodes = (name, sym, eValue, dep) => {
-    if (!_.isPlainObject(eValue)) {
-      return `\n${ident(depth).slice(2)}${sym} ${name}: ${eValue}`;
-    }
-    const lines = _.entries(eValue).map(([key, value]) => `${stringifyValue(key, ' ', value, dep + 1)}`).join('');
+const nodeTypeSymbols = {
+  deleted: '-',
+  added: '+',
+  unchanged: ' ',
+  changed: '+',
+};
 
-    return `\n${ident(depth).slice(2)}${sym} ${name}: {${lines}\n${ident(dep)}}`;
-  };
-
-  return nodes(nodeName, symbol, nodeValue, depth);
+const stringify = (nodeValue, depth) => {
+  if (!_.isPlainObject(nodeValue)) {
+    return nodeValue;
+  }
+  const lines = _.entries(nodeValue)
+    .map(([key, value]) => `\n${ident(depth + 1)}${key}: ${stringify(value, depth + 1)}`).join('');
+  return `{${lines}\n${ident(depth)}}`;
 };
 
 const formatStylish = (innerTree) => {
@@ -22,13 +25,14 @@ const formatStylish = (innerTree) => {
         case 'nested':
           return `\n${ident(depth)}${node.name}: ${formatNodes(node.children, depth + 1)}`;
         case 'deleted':
-          return stringifyValue(node.name, '-', node.value, depth);
         case 'added':
-          return stringifyValue(node.name, '+', node.value, depth);
         case 'unchanged':
-          return stringifyValue(node.name, ' ', node.value, depth);
-        case 'changed':
-          return `${stringifyValue(node.name, '-', node.value1, depth)}${stringifyValue(node.name, '+', node.value2, depth)}`;
+          return `\n${ident(depth).slice(2)}${nodeTypeSymbols[node.type]} ${node.name}: ${stringify(node.value, depth)}`;
+        case 'changed': {
+          const deletedNode = `\n${ident(depth).slice(2)}${nodeTypeSymbols.deleted} ${node.name}: ${stringify(node.value1, depth)}`;
+          const addedNode = `\n${ident(depth).slice(2)}${nodeTypeSymbols.changed} ${node.name}: ${stringify(node.value2, depth)}`;
+          return `${deletedNode}${addedNode}`;
+        }
         default:
           throw new Error(`Element type ${node.type} is not supported!`);
       }
