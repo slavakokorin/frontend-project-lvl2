@@ -14,7 +14,7 @@ test.each([
   { format: 'stylish' },
   { format: 'plain' },
   { format: 'json' },
-])('comparing not flat json and yaml filess', ({ format }) => {
+])('comparing not flat json and yaml files', ({ format }) => {
   const file1 = buildFixturePath('file1.json');
   const file2 = buildFixturePath('file2.yaml');
   expect(genDiff(file1, file2, format)).toBe(readFile(`${format}Output.txt`));
