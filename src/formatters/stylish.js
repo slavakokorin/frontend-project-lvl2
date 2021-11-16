@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-const ident = (depth, replacer = '  ', spacesCount = 2) => replacer.repeat(spacesCount * depth);
+const ident = (depth, spacesCount = 4) => ' '.repeat(spacesCount * depth);
 
-const nodeTypeSymbols = {
+const labels = {
   deleted: '-',
   added: '+',
   unchanged: ' ',
@@ -11,7 +11,7 @@ const nodeTypeSymbols = {
 
 const stringify = (nodeValue, depth) => {
   if (!_.isPlainObject(nodeValue)) {
-    return nodeValue;
+    return String(nodeValue);
   }
   const lines = _.entries(nodeValue)
     .map(([key, value]) => `\n${ident(depth + 1)}${key}: ${stringify(value, depth + 1)}`).join('');
@@ -27,10 +27,10 @@ const formatStylish = (innerTree) => {
         case 'deleted':
         case 'added':
         case 'unchanged':
-          return `\n${ident(depth).slice(2)}${nodeTypeSymbols[node.type]} ${node.name}: ${stringify(node.value, depth)}`;
+          return `\n${ident(depth).slice(2)}${labels[node.type]} ${node.name}: ${stringify(node.value, depth)}`;
         case 'changed': {
-          const deletedNode = `\n${ident(depth).slice(2)}${nodeTypeSymbols.deleted} ${node.name}: ${stringify(node.value1, depth)}`;
-          const addedNode = `\n${ident(depth).slice(2)}${nodeTypeSymbols.changed} ${node.name}: ${stringify(node.value2, depth)}`;
+          const deletedNode = `\n${ident(depth).slice(2)}${labels.deleted} ${node.name}: ${stringify(node.value1, depth)}`;
+          const addedNode = `\n${ident(depth).slice(2)}${labels.changed} ${node.name}: ${stringify(node.value2, depth)}`;
           return `${deletedNode}${addedNode}`;
         }
         default:
