@@ -1,4 +1,5 @@
-{
+[
+  {
     "name": "common",
     "type": "nested",
     "children": [
@@ -171,3 +172,4 @@
       }
     ]
   }
+]
